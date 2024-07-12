@@ -3,6 +3,8 @@
   padding: 0;
   background-color: rgb(207, 215, 239);
   box-sizing: border-box;
+  font-size: 18px;
+  font-family: arial;
 }
 
 main {
@@ -27,12 +29,13 @@ section {
  li {
    margin: 3px 0;
    list-style: none;
-   padding: 3px 10px;
+   padding: 10px 20px;
  }
 
- button {
+ .list_button {
    margin: 0 5px;
    float: right;
+   padding: 5px 10px;
  }
 
  span {
@@ -40,6 +43,8 @@ section {
    padding: 2px 5px;
    float: left;
  }
+
+
 
 .item {
   padding: 10px 15px;
@@ -53,4 +58,22 @@ section {
 
 .top-items {
   order: 3;
+}
+
+#pop-up {
+  display: none;
+  height: 200px;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin-left: -200px;
+  text-align: center;
+  padding-top: 90px;
+}
+
+#update-button {
+  padding: 5px 10px;
+
 }
