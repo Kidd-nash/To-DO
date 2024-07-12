@@ -80,8 +80,15 @@ window.addEventListener('load', function(event){
         let deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'DELETE';
 
+
         task.appendChild(editButton);
         task.appendChild(deleteButton);
+        deleteButton.onclick = function(event) {
+            console.log(task);
+            if (confirm('do you want to delete this?') == true) {
+              task.remove();
+            }
+         }
         let isCompleted = document.createElement('span');
         isCompleted.innerHTML = 'X';
         task.prepend(isCompleted);
