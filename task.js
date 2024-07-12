@@ -4,7 +4,16 @@ window.addEventListener('load', function(event){
     var inputButton = document.getElementById("input-button");
     var taskHolder = document.getElementById("task-holder");
     var listHolder = document.getElementsByClassName("to-do-item")[0];
-    console.log(listHolder);
+    // var updateInput = document.getElementsByClassName("text-edit")[0];
+    // var updateButton = document.getElementById("update-button");
+    window.currentEditId = '';
+
+    // updateButton.addEventListener('click', function(e) {
+    //   // get updateInput value
+    //   document.getElementById(window.currentEditId).innerHTML = updateInput.value;
+    //   // hide pop up
+    //   document.getElementById("pop-up").style.display = 'none';
+    // });
 
     var taskItems = [
         { title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
@@ -47,7 +56,7 @@ window.addEventListener('load', function(event){
 
         addTaskToList(index, taskItems[index].title);
         //calling out tasks items with title and indesx
-    };
+    }
     inputButton.addEventListener('click', function(e) {
         // validate if input has value
         if (taskInput.value === '') {
@@ -70,21 +79,57 @@ window.addEventListener('load', function(event){
         task.id = "task_item_" + index;
 
 
-        task.innerHTML = title;
+        let titleSpan = document.createElement('span');
+        task.appendChild(titleSpan);
+        // task.innerHTML = title;
+        titleSpan.innerHTML = title;
+        titleSpan.id = 'task_title_' + index;
+
         // console.log(task);
         listHolder.appendChild(task);
         //task.id = "error_message_idx"; // to update
 
         let editButton = document.createElement('button');
         editButton.innerHTML = 'EDIT';
+        editButton.classList.add("list_button");
         let deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'DELETE';
+        deleteButton.classList.add("list_button");
 
 
         task.appendChild(editButton);
         task.appendChild(deleteButton);
+
+        editButton.onclick = function() {
+            // document.getElementById("pop-up").style.display = 'block';
+            window.currentEditId = titleSpan.id;
+            let popUp = document.createElement("div");
+            popUp.classList.add("edit_pop_up");
+            popUp.id = "edit_pop_up";
+            let inputPopUp = document.createElement("input");
+            inputPopUp.id = "input_pop-up";
+            inputPopUp.value = title;
+            let buttonPopUp = document.createElement("button");
+            buttonPopUp.innerHTML = "UPDATE";
+            buttonPopUp.classList.add("button_pop_up");
+            buttonPopUp.onclick = function(event) {
+              console.log(inputPopUp);
+              document.getElementById(window.currentEditId).innerHTML = inputPopUp.value;
+              popUp.remove();
+            }
+
+
+            const bodyId = document.getElementById("body_id");
+
+            bodyId.appendChild(popUp);
+            popUp.appendChild(inputPopUp);
+            inputPopUp.after(buttonPopUp);
+            inputPopUp.setAttribute("type", "text");
+
+
+        }
+
         deleteButton.onclick = function(event) {
-            console.log(task);
             if (confirm('do you want to delete this?') == true) {
               task.remove();
             }
@@ -93,5 +138,7 @@ window.addEventListener('load', function(event){
         isCompleted.innerHTML = 'X';
         task.prepend(isCompleted);
       }
+
+    
     function alertNoInput(){}
 });
