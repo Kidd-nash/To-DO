@@ -1,7 +1,64 @@
 window.addEventListener('load', function(event){
-
+    console.log('start');
     var taskInput = document.getElementById("task-input");
     var inputButton = document.getElementById("input-button");
     var taskHolder = document.getElementById("task-holder");
-    
+    var listHolder = document.getElementsByClassName("to-do-item")[0];
+    console.log(listHolder);
+
+    var taskItems = [
+        { title:  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+        { title:  'Vestibulum eget tortor vel elit efficitur faucibus.'},
+        { title:  'Nulla maximus eros ut mauris varius sodales.' },
+        { title:'Maecenas non nunc eu risus bibendum bibendum.'},
+        { title: 'Integer commodo odio sed vehicula volutpat.'}
+
+    ];
+    console.log('this is a collection:');
+    console.log(document.getElementsByClassName("to-do-item"));
+    console.log('this is an array:');
+    console.log(taskItems);
+    if ( 1===5) { // loop an array with foreach
+        taskItems.forEach(function(taskItem) {
+            let task = document.createElement("li");
+            task.innerHTML = taskItem.title;
+            // console.log(task);
+            listHolder.appendChild(task);
+          });
+        }
+    if ( 1===5 ) { // loop with for..of
+        for (taskItem of taskItems) {  // for .. of   -   taskItem contains object
+            let task = document.createElement("li");
+            task.innerHTML = taskItem.title;
+            // console.log(task);
+            listHolder.appendChild(task);
+          }
+        }
+    if ( 1===5 ) {
+        for (let i = 0; i < 5; i++ ) { // for (let ctr; ; )
+            let task = document.createElement("li");
+            task.innerHTML = taskItems[ctr].title;
+            // console.log(task);
+            listHolder.appendChild(task);
+          }
+        }
+    for (index in taskItems) { // for .. in - index is the sequence number of object
+        // console.log(arrayObjects[index].title);
+        addTaskToList(taskItems[index].title);
+    };
+    inputButton.addEventListener('click', function(e) {
+        // validate if input has value
+        // next: show error
+        // get value of input
+        var newTask = taskInput.value;
+        // display
+        addTaskToList(newTask);
+    });
+    function addTaskToList(title) {
+        let task = document.createElement("li");
+        task.innerHTML = title;
+        // console.log(task);
+        listHolder.appendChild(task);
+        task.id = "error_message_idx"; // to update
+      }
 });
