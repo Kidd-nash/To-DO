@@ -1,6 +1,8 @@
 * {
-  margin: 1px 10px;
-  background-color: rgb(157, 165, 189);
+  margin: 0;
+  padding: 0;
+  background-color: rgb(207, 215, 239);
+  box-sizing: border-box;
 }
 
 main {
@@ -11,18 +13,37 @@ main {
   left: 240px;
 }
 
+section {
+  border: 1px solid rgb(0, 0, 0);
+  width: 960px;
+  overflow: hidden;
+}
+
  ul {
    text-align: center;
  }
 
+ li {
+   margin: 3px 0;
+   list-style: none;
+   padding: 3px 10px;
+ }
+
  button {
-   margin: 2px;
+   margin: 0 5px;
+   float: right;
  }
 
  span {
    border: 1px dotted rgb(0, 0, 0);
    padding: 2px 5px;
+   float: left;
  }
+
+.item {
+  padding: 10px 15px;
+  margin: 10px;
+}
 
 .container {
   flex-wrap: wrap;

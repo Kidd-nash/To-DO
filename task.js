@@ -64,7 +64,7 @@ window.addEventListener('load', function(event){
     });
     function addTaskToList(title) {
         let task = document.createElement("li");
-        task.style="display:flex";
+        //task.style="display:flex";
 
         task.innerHTML = title;
         // console.log(task);
