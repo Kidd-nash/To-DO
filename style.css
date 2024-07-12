@@ -8,9 +8,10 @@
 main {
   border: 1px solid rgb(0, 0, 0);
   width: 960px;
-  position: fixed;
+  margin: 20px auto;
+  /* position: fixed;
   top: 20px;
-  left: 240px;
+  left: 240px; */
 }
 
 section {
