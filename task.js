@@ -7,10 +7,10 @@ window.addEventListener('load', function(event){
     console.log(listHolder);
 
     var taskItems = [
-        { title:  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-        { title:  'Vestibulum eget tortor vel elit efficitur faucibus.'},
-        { title:  'Nulla maximus eros ut mauris varius sodales.' },
-        { title:'Maecenas non nunc eu risus bibendum bibendum.'},
+        { title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+        { title: 'Vestibulum eget tortor vel elit efficitur faucibus.'},
+        { title: 'Nulla maximus eros ut mauris varius sodales.' },
+        { title: 'Maecenas non nunc eu risus bibendum bibendum.'},
         { title: 'Integer commodo odio sed vehicula volutpat.'}
 
     ];
@@ -44,32 +44,36 @@ window.addEventListener('load', function(event){
         }
     for (index in taskItems) { // for .. in - index is the sequence number of object
         // console.log(arrayObjects[index].title);
-        addTaskToList(taskItems[index].title);
+
+        addTaskToList(index, taskItems[index].title);
+        //calling out tasks items with title and indesx
     };
     inputButton.addEventListener('click', function(e) {
         // validate if input has value
         if (taskInput.value === '') {
             let noInputMessage = document.createElement ("span");
             noInputMessage.classList.add('errorNotice');
-
+            // next: show error
             taskInput.after(noInputMessage);
             noInputMessage.innerHTML = 'No values for ' + taskInput.name;
 
         }
-        // next: show error
         // get value of input
         var newTask = taskInput.value;
         // display
-        addTaskToList(newTask);
+        addTaskToList(taskItems.length, newTask);
+        taskItems.push({ title: taskInput.value});
     });
-    function addTaskToList(title) {
+    function addTaskToList(index, title) {
         let task = document.createElement("li");
-        //task.style="display:flex";
+        //add and id to the li
+        task.id = "task_item_" + index;
+
 
         task.innerHTML = title;
         // console.log(task);
         listHolder.appendChild(task);
-        task.id = "error_message_idx"; // to update
+        //task.id = "error_message_idx"; // to update
 
         let editButton = document.createElement('button');
         editButton.innerHTML = 'EDIT';
