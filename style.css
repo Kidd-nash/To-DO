@@ -1,10 +1,15 @@
 * {
   margin: 0;
+  background-color: rgb(157, 165, 189);
 }
 
-table, th, td {
+main {
   border: 1px solid rgb(0, 0, 0);
-}
-table {
   width: 960px;
+  position: fixed;
+  top: 20px;
+  left: 240px;
 }
+ ul {
+   text-align: center;
+ }
