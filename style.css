@@ -1,5 +1,5 @@
 * {
-  margin: 0;
+  margin: 1px 10px;
   background-color: rgb(157, 165, 189);
 }
 
@@ -13,6 +13,15 @@ main {
 
  ul {
    text-align: center;
+ }
+
+ button {
+   margin: 2px;
+ }
+
+ span {
+   border: 1px dotted rgb(0, 0, 0);
+   padding: 2px 5px;
  }
 
 .container {

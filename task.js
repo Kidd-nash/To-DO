@@ -48,6 +48,14 @@ window.addEventListener('load', function(event){
     };
     inputButton.addEventListener('click', function(e) {
         // validate if input has value
+        if (taskInput.value === '') {
+            let noInputMessage = document.createElement ("span");
+            noInputMessage.classList.add('errorNotice');
+
+            taskInput.after(noInputMessage);
+            noInputMessage.innerHTML = 'No values for ' + taskInput.name;
+
+        }
         // next: show error
         // get value of input
         var newTask = taskInput.value;
@@ -56,9 +64,23 @@ window.addEventListener('load', function(event){
     });
     function addTaskToList(title) {
         let task = document.createElement("li");
+        task.style="display:flex";
+
         task.innerHTML = title;
         // console.log(task);
         listHolder.appendChild(task);
         task.id = "error_message_idx"; // to update
+
+        let editButton = document.createElement('button');
+        editButton.innerHTML = 'EDIT';
+        let deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'DELETE';
+
+        task.appendChild(editButton);
+        task.appendChild(deleteButton);
+        let isCompleted = document.createElement('span');
+        isCompleted.innerHTML = 'X';
+        task.prepend(isCompleted);
       }
+    function alertNoInput(){}
 });
