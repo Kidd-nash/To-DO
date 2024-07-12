@@ -139,6 +139,13 @@ window.addEventListener('load', function(event){
         task.prepend(isCompleted);
       }
 
-    
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          var pop = document.getElementById("edit_pop_up");
+          if (pop) {
+            pop.remove();
+          }
+        }
+      });
     function alertNoInput(){}
 });
