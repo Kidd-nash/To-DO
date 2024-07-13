@@ -7,28 +7,28 @@
   font-family: arial;
 }
 
-main {
+.container {
+  flex-wrap: wrap;
+  flex-direction: row;
   border: 1px solid rgb(0, 0, 0);
   width: 960px;
   margin: 20px auto;
-  /* position: fixed;
-  top: 20px;
-  left: 240px; */
 }
 
-section {
+.top-items,
+    .list-container{
   border: 1px solid rgb(0, 0, 0);
   width: 960px;
   overflow: hidden;
 }
 
- ul {
+ .to-do-item {
    text-align: center;
    padding-bottom: 20px;
  }
 
- li {
-   margin: 3px 0;
+ .task_item {
+   margin: 3px 0 auto;
    list-style: none;
    padding: 25px 25px;
  }
@@ -50,11 +50,6 @@ section {
 .item {
   padding: 10px 15px;
   margin: 10px;
-}
-
-.container {
-  flex-wrap: wrap;
-  flex-direction: row;
 }
 
 .top-items {

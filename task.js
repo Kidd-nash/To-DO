@@ -77,6 +77,7 @@ window.addEventListener('load', function(event){
         let task = document.createElement("li");
         //add and id to the li
         task.id = "task_item_" + index;
+        task.classList.add("task_item");
 
 
         let titleSpan = document.createElement('span');
@@ -84,6 +85,7 @@ window.addEventListener('load', function(event){
         // task.innerHTML = title;
         titleSpan.innerHTML = title;
         titleSpan.id = 'task_title_' + index;
+        titleSpan.classList.add("task_titles");
 
         // console.log(task);
         listHolder.appendChild(task);
