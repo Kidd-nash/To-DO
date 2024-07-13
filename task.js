@@ -65,7 +65,7 @@ window.addEventListener('load', function(event){
             // next: show error
             taskInput.after(noInputMessage);
             noInputMessage.innerHTML = 'No values for ' + taskInput.name;
-
+            return;
         }
         // get value of input
         var newTask = taskInput.value;
