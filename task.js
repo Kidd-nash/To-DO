@@ -60,6 +60,14 @@ window.addEventListener('load', function(event){
     inputButton.addEventListener('click', function(e) {
         //this remove does not work since it is a created element
         //document.getElementById("no_value").classList.remove('errorNotice');
+
+        // check / clear first
+        var error = document.getElementById('no_value');
+        if (error != undefined) {
+            error.remove();
+            document.getElementById("task-input").classList.remove('error');
+        }
+
         // validate if input has value
         if (taskInput.value === '') {
             let noInputMessage = document.createElement ("span");
@@ -67,16 +75,18 @@ window.addEventListener('load', function(event){
             noInputMessage.id = "no_value"
             // next: show error
             taskInput.after(noInputMessage);
-            noInputMessage.innerHTML = 'No values for ' + taskInput.name;
+            noInputMessage.innerHTML = 'No value' + taskInput.name;
+            taskInput.classList.add("error");
             return;
         }
-        document.getElementById("no_value").classList.remove('no_value');
+
         // get value of input
         var newTask = taskInput.value;
         // display
         addTaskToList(taskItems.length, newTask);
         taskItems.push({ title: taskInput.value});
     });
+
     function addTaskToList(index, title) {
         let task = document.createElement("li");
         //add and id to the li
