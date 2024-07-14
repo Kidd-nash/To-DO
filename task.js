@@ -129,11 +129,20 @@ window.addEventListener('load', function(event){
             buttonPopUp.innerHTML = "UPDATE";
             buttonPopUp.classList.add("button_pop_up");
             buttonPopUp.onclick = function(event) {
+              if (inputPopUp.value === '') {
+                  let noInputPopUpMessage = document.createElement ("span");
+                  noInputPopUpMessage.classList.add('errorNotice');
+                  noInputPopUpMessage.id = "no_value"
+                  // next: show error
+                  inputPopUp.after(noInputPopUpMessage);
+                  noInputPopUpMessage.innerHTML = 'No value' + taskInput.name;
+                  inputPopUp.classList.add("error");
+                  return;
+              }
               console.log(inputPopUp);
               document.getElementById(window.currentEditId).innerHTML = inputPopUp.value;
               popUp.remove();
             }
-
 
             const bodyId = document.getElementById("body_id");
 
