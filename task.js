@@ -26,10 +26,26 @@ window.addEventListener('load', function(event){
           date: '15-07-27'},
         { title: 'Integer commodo odio sed vehicula volutpat.',
           date: '15-07-28'},
-        { title: 'trial task',
+        { id: 6, title: 'trial task',
           date: 'date'}
-
     ];
+
+
+    var strSavedTaskItems = window.localStorage.getItem('taskItems');
+    if (strSavedTaskItems != undefined) {
+        let savedItems = JSON.parse(strSavedTaskItems);
+        taskItems = savedItems;
+    }
+
+    window.lastId = taskItems.reduce(
+      (accumulator, currentValue) => {
+         if (currentValue > accumulator) {
+           return currentValue;
+         }
+      },
+      0
+    );
+
     console.log('this is a collection:');
     console.log(document.getElementsByClassName("to-do-item"));
     console.log('this is an array:');
@@ -62,7 +78,7 @@ window.addEventListener('load', function(event){
     for (index in taskItems) { // for .. in - index is the sequence number of object
         // console.log(arrayObjects[index].title);
 
-        addTaskToList(index, taskItems[index].title);
+        addTaskToList(index, taskItems[index].title, taskItems[index].date);
         // addTaskToList(index, taskItems[index].date);
         //calling out tasks items with title and indesx
     }
@@ -96,10 +112,18 @@ window.addEventListener('load', function(event){
         var newTask = taskInput.value;
         // display
         addTaskToList(taskItems.length, newTask);
-        taskItems.push({ title: taskInput.value});
+        taskItems.push({ id: ++window.lastId, title: taskInput.value, date: 'temp - todo replace'});
+        window.localStorage.setItem(
+            'taskItems',
+            JSON.stringify(taskItems)
+        );
+
+        console.log('new tasks');
+        console.log(taskItems);
     });
 
-    function addTaskToList(index, title) {
+    function addTaskToList(index, title, date) {
+
         let task = document.createElement("li");
         //add and id to the li
         task.id = "task_item_" + index;
@@ -115,7 +139,7 @@ window.addEventListener('load', function(event){
 
         let taskDate = document.createElement('span');
         task.appendChild(taskDate);
-        taskDate.innerHTML = '~ 15-07-24';
+        taskDate.innerHTML = `~ ${date}`;
         taskDate.id = 'task_date';
 
         // console.log(task);
@@ -167,16 +191,25 @@ window.addEventListener('load', function(event){
             popUp.appendChild(inputPopUp);
             inputPopUp.after(buttonPopUp);
             inputPopUp.setAttribute("type", "text");
-
-
         }
 
         deleteButton.onclick = function(event) {
             if (confirm('do you want to delete this?') == true) {
+              // create new array, excluding the deleted task
+              let newTaskItems = taskItems.filter( (taskItem) => {
+                return taskItem.title != title;
+              });
+
+              // save to memory
+              window.localStorage.setItem(
+                  'taskItems',
+                  JSON.stringify(newTaskItems)
+              );
+
               task.remove();
             }
          }
-        let isCompleted = document.createElement('button');
+        let isCompleted = document.createElement('button'); // checkbox input
         isCompleted.innerHTML = 'X';
         isCompleted.id = "completed";
         task.prepend(isCompleted);
@@ -186,7 +219,11 @@ window.addEventListener('load', function(event){
             task.remove();
           }
         }
-
+        // isCompleted.onclick = function(event) {
+        //     let completedPopUp = document.createElement("div");
+        //     completedPopUp.classList.add("edit_pop_up");
+        //     completedPopUp.id = "edit_pop_up";
+        // }
       }
 
       document.addEventListener('keydown', function(event) {
@@ -200,4 +237,31 @@ window.addEventListener('load', function(event){
     function alertNoInput(){}
 
     function addDatetoTaskList(){}
+
+    // TODO
+    // var taskStorage = {
+    //   defautlList: {
+    //
+    //   }
+    //
+    //   getTaskList() {
+    //       // check network, get from network, else return default list
+    //   }
+    //
+    //   addTask() {
+    //
+    //     return id
+    //   }
+    //
+    //   removeTask(id) {
+    //
+    //   }
+    //
+    //   updateTask(id) {
+    //
+    //   }
+    //
+    //
+    // }
+
 });
