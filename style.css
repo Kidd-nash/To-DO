@@ -39,7 +39,7 @@
    padding: 5px 10px;
  }
 
- span {
+ #completed {
    border: 1px dotted rgb(0, 0, 0);
    padding: 2px 5px;
    float: left;

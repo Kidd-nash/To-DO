@@ -25,7 +25,9 @@ window.addEventListener('load', function(event){
         { title: 'Maecenas non nunc eu risus bibendum bibendum.',
           date: '15-07-27'},
         { title: 'Integer commodo odio sed vehicula volutpat.',
-          date: '15-07-28'}
+          date: '15-07-28'},
+        { title: 'trial task',
+          date: 'date'}
 
     ];
     console.log('this is a collection:');
@@ -33,35 +35,39 @@ window.addEventListener('load', function(event){
     console.log('this is an array:');
     console.log(taskItems);
     console.log(taskItems[3].date);
-    if ( 1===5) { // loop an array with foreach
-        taskItems.forEach(function(taskItem) {
-            let task = document.createElement("li");
-            task.innerHTML = taskItem.title;
-            // console.log(task);
-            listHolder.appendChild(task);
-          });
-        }
-    if ( 1===5 ) { // loop with for..of
-        for (taskItem of taskItems) {  // for .. of   -   taskItem contains object
-            let task = document.createElement("li");
-            task.innerHTML = taskItem.title;
-            // console.log(task);
-            listHolder.appendChild(task);
-          }
-        }
-    if ( 1===5 ) {
-        for (let i = 0; i < 5; i++ ) { // for (let ctr; ; )
-            let task = document.createElement("li");
-            task.innerHTML = taskItems[ctr].title;
-            // console.log(task);
-            listHolder.appendChild(task);
-          }
-        }
+    // if ( 1===5) { // loop an array with foreach
+    //     taskItems.forEach(function(taskItem) {
+    //         let task = document.createElement("li");
+    //         task.innerHTML = taskItem.title;
+    //         // console.log(task);
+    //         listHolder.appendChild(task);
+    //       });
+    //     }
+    // if ( 1===5 ) { // loop with for..of
+    //     for (taskItem of taskItems) {  // for .. of   -   taskItem contains object
+    //         let task = document.createElement("li");
+    //         task.innerHTML = taskItem.title;
+    //         // console.log(task);
+    //         listHolder.appendChild(task);
+    //       }
+    //     }
+    // if ( 1===5 ) {
+    //     for (let i = 0; i < 5; i++ ) { // for (let ctr; ; )
+    //         let task = document.createElement("li");
+    //         task.innerHTML = taskItems[ctr].title;
+    //         // console.log(task);
+    //         listHolder.appendChild(task);
+    //       }
+    //     }
     for (index in taskItems) { // for .. in - index is the sequence number of object
         // console.log(arrayObjects[index].title);
 
         addTaskToList(index, taskItems[index].title);
+        // addTaskToList(index, taskItems[index].date);
         //calling out tasks items with title and indesx
+    }
+    for (index in taskItems) {
+        addDatetoTaskList(index, taskItems[index].date);
     }
     inputButton.addEventListener('click', function(e) {
         //this remove does not work since it is a created element
@@ -106,6 +112,11 @@ window.addEventListener('load', function(event){
         titleSpan.innerHTML = title;
         titleSpan.id = 'task_title_' + index;
         titleSpan.classList.add("task_titles");
+
+        let taskDate = document.createElement('span');
+        task.appendChild(taskDate);
+        taskDate.innerHTML = '~ 15-07-24';
+        taskDate.id = 'task_date';
 
         // console.log(task);
         listHolder.appendChild(task);
@@ -165,9 +176,17 @@ window.addEventListener('load', function(event){
               task.remove();
             }
          }
-        let isCompleted = document.createElement('span');
+        let isCompleted = document.createElement('button');
         isCompleted.innerHTML = 'X';
+        isCompleted.id = "completed";
         task.prepend(isCompleted);
+
+        isCompleted.onclick = function(event) {
+          if (confirm("Have you completed this task?") == true) {
+            task.remove();
+          }
+        }
+
       }
 
       document.addEventListener('keydown', function(event) {
@@ -179,4 +198,6 @@ window.addEventListener('load', function(event){
         }
       });
     function alertNoInput(){}
+
+    function addDatetoTaskList(){}
 });
