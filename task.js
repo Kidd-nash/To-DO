@@ -16,17 +16,23 @@ window.addEventListener('load', function(event){
     // });
 
     var taskItems = [
-        { title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-        { title: 'Vestibulum eget tortor vel elit efficitur faucibus.'},
-        { title: 'Nulla maximus eros ut mauris varius sodales.' },
-        { title: 'Maecenas non nunc eu risus bibendum bibendum.'},
-        { title: 'Integer commodo odio sed vehicula volutpat.'}
+        { title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          date: '15-07-24'},
+        { title: 'Vestibulum eget tortor vel elit efficitur faucibus.',
+          date: '15-07-25'},
+        { title: 'Nulla maximus eros ut mauris varius sodales.',
+          date: '15-07-26'},
+        { title: 'Maecenas non nunc eu risus bibendum bibendum.',
+          date: '15-07-27'},
+        { title: 'Integer commodo odio sed vehicula volutpat.',
+          date: '15-07-28'}
 
     ];
     console.log('this is a collection:');
     console.log(document.getElementsByClassName("to-do-item"));
     console.log('this is an array:');
     console.log(taskItems);
+    console.log(taskItems[3].date);
     if ( 1===5) { // loop an array with foreach
         taskItems.forEach(function(taskItem) {
             let task = document.createElement("li");
