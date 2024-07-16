@@ -39,6 +39,16 @@
    padding: 5px 10px;
  }
 
+ .completed {
+   disabled: disabled;
+   filter: blur(2px);
+ }
+
+ .completed_task {
+   border: 1px solid rgb(0, 255, 0);
+   border-radius: 10px;
+ }
+
  #completed {
    border: 1px dotted rgb(0, 0, 0);
    padding: 2px 5px;
@@ -81,6 +91,14 @@
 
 #update-button {
   padding: 5px 10px;
+}
+
+.delete_fade {
+  /* visibility: hidden; */
+  opacity: 0;
+  padding: 0;
+  transition: opacity 2s ease-in, padding 2s ease-in;
+  /* transition: visibility 0s 2s, opacity 2s linear; */
 }
 
 .error {
