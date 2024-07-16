@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='style.css' rel='stylesheet' />
-    <script type="text/javascript" src="/To-DO/task.js"></script>
-    <title>A To Do Page</title>
-  </head>
-  <body id="body_id">
-    <header>
-    </header>
-    <main class="container">
-      <section class="top-items" style="display: flex">
-        <p class="item">To Do:</p>
-        <input type="text" class="item" id="task-input"
-        placeholder="Type a task..." />
-        <button type="item" class="input-button item"
-        id="input-button">Click to add task</button>
-      </section>
-      <section class="list-container">
-        <ul class="to-do-item">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='style.css' rel='stylesheet' />
+        <script type="text/javascript" src="/To-DO/task.js"></script>
+        <title>A To Do Page</title>
+    </head>
+    <body id="body_id">
+        <header>
+        </header>
+        <main class="container">
+            <section class="top-items" style="display: flex">
+                <p class="item">To Do:</p>
+                <form name="input_values" id="input_value">
+                <input type="text" class="item" id="task-input"
+                placeholder="Type a task..." />
+                <button type="item" class="input-button item"
+                id="input-button">Click to add task</button>
+                <label for="set_date">Set Date:</label>
+                <input type="date" id="set_date" name="set_date"
+                min="2024-07-16" max="2025-12-30">
+              </form>
+            </section>
+            <section class="list-container">
+                <ul class="to-do-item">
 
-        </ul>
-      </section>
-    </main>
-    <footer>
+                </ul>
+            </section>
+        </main>
+        <footer>
 
-    </footer>
-    <div id="pop-up">
-     <input type="text" class="text-edit" />
-     <button id="update-button">Update</button>
-   </div>
-  </body>
+        </footer>
+        <div id="pop-up">
+         <input type="text" class="text-edit" />
+         <button id="update-button">Update</button>
+       </div>
+    </body>
 </html>
