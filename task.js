@@ -199,6 +199,14 @@ window.addEventListener('load', function(event){
               document.getElementById(window.currentEditId).innerHTML = inputPopUp.value;
               popUp.remove();
             }
+            // document.getElementById('edit_pop_up').remove();
+            let exitButton = document.createElement("button");
+            exitButton.classList.add("exit_button");
+            exitButton.innerHTML = "X";
+            exitButton.onclick = function(event) {
+                
+                edit_pop_up.remove();
+            }
 
             const bodyId = document.getElementById("body_id");
 
@@ -206,6 +214,7 @@ window.addEventListener('load', function(event){
             popUp.appendChild(inputPopUp);
             inputPopUp.after(buttonPopUp);
             inputPopUp.setAttribute("type", "text");
+            buttonPopUp.after(exitButton);
         }
 
         deleteButton.onclick = function(event) {
