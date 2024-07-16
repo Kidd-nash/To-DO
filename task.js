@@ -4,6 +4,8 @@ window.addEventListener('load', function(event){
     var inputButton = document.getElementById("input-button");
     var taskHolder = document.getElementById("task-holder");
     var listHolder = document.getElementsByClassName("to-do-item")[0];
+    var dateInput = document.getElementById("set_date");
+
     // var updateInput = document.getElementsByClassName("text-edit")[0];
     // var updateButton = document.getElementById("update-button");
     window.currentEditId = '';
@@ -86,6 +88,7 @@ window.addEventListener('load', function(event){
         addDatetoTaskList(index, taskItems[index].date);
     }
     inputButton.addEventListener('click', function(e) {
+        e.preventDefault();
         //this remove does not work since it is a created element
         //document.getElementById("no_value").classList.remove('errorNotice');
 
@@ -97,22 +100,34 @@ window.addEventListener('load', function(event){
         }
 
         // validate if input has value
-        if (taskInput.value === '') {
-            let noInputMessage = document.createElement ("span");
-            noInputMessage.classList.add('errorNotice');
-            noInputMessage.id = "no_value"
-            // next: show error
-            taskInput.after(noInputMessage);
-            noInputMessage.innerHTML = 'No value' + taskInput.name;
-            taskInput.classList.add("error");
+        if (taskInput.value === '' || dateInput.value === '') {
+            if (taskInput.value === '') {
+                let noInputMessage = document.createElement ("span");
+                noInputMessage.classList.add('errorNotice');
+                noInputMessage.id = "no_value"
+                // next: show error
+                taskInput.after(noInputMessage);
+                noInputMessage.innerHTML = 'No value' + taskInput.name;
+                taskInput.classList.add("error");
+            }
+
+            if (dateInput.value === '') {
+                let noInputDate = document.createElement ("span");
+                noInputDate.classList.add('errorNotice');
+                dateInput.after(noInputDate);
+                noInputDate.innerHTML = 'No value';
+                dateInput.classList.add("error");
+            }
+
             return;
         }
 
         // get value of input
         var newTask = taskInput.value;
+        var setDate = dateInput.value;
         // display
-        addTaskToList(taskItems.length, newTask);
-        taskItems.push({ id: ++window.lastId, title: taskInput.value, date: 'temp - todo replace'});
+        addTaskToList(taskItems.length, newTask, dateInput.value);
+        taskItems.push({ id: ++window.lastId, title: taskInput.value, date: dateInput.value});
         window.localStorage.setItem(
             'taskItems',
             JSON.stringify(taskItems)
