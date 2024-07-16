@@ -8,8 +8,8 @@
 }
 
 .container {
-  flex-wrap: wrap;
-  flex-direction: row;
+  /* flex-wrap: wrap;
+  flex-direction: row; */
   border: 1px solid rgb(0, 0, 0);
   width: 960px;
   margin: 20px auto;
@@ -18,7 +18,7 @@
 .top-items,
     .list-container{
   border: 1px solid rgb(0, 0, 0);
-  width: 960px;
+  width: 1000px;
   overflow: hidden;
 }
 
@@ -44,8 +44,6 @@
    padding: 2px 5px;
    float: left;
  }
-
-
 
 .item {
   padding: 10px 15px;
