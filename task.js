@@ -204,7 +204,7 @@ window.addEventListener('load', function(event){
             exitButton.classList.add("exit_button");
             exitButton.innerHTML = "X";
             exitButton.onclick = function(event) {
-                
+
                 edit_pop_up.remove();
             }
 
@@ -219,6 +219,7 @@ window.addEventListener('load', function(event){
 
         deleteButton.onclick = function(event) {
             if (confirm('do you want to delete this?') == true) {
+              task.classList.add("delete_fade");
               // create new array, excluding the deleted task
               let newTaskItems = taskItems.filter( (taskItem) => {
                 return taskItem.title != title;
@@ -230,17 +231,22 @@ window.addEventListener('load', function(event){
                   JSON.stringify(newTaskItems)
               );
 
-              task.remove();
+              // task.remove();
+              setTimeout(() => { task.remove(); }, 2500);
             }
          }
-        let isCompleted = document.createElement('button'); // checkbox input
-        isCompleted.innerHTML = 'X';
+        let isCompleted = document.createElement("input"); // checkbox input
         isCompleted.id = "completed";
+        isCompleted.setAttribute("type", "checkbox");
         task.prepend(isCompleted);
 
         isCompleted.onclick = function(event) {
           if (confirm("Have you completed this task?") == true) {
-            task.remove();
+            editButton.classList.add("completed");
+            deleteButton.classList.add("completed");
+            editButton.setAttribute("disabled", "disabled");
+            deleteButton.setAttribute("disabled", "disabled");
+            titleSpan.classList.add("completed_task");
           }
         }
         // isCompleted.onclick = function(event) {
