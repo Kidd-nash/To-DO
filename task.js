@@ -19,25 +19,36 @@ window.addEventListener('load', function(event){
 
     var taskItems = [
         { title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          date: '15-07-24'},
+          date: '15-07-24',
+          isCompleted: true},
         { title: 'Vestibulum eget tortor vel elit efficitur faucibus.',
-          date: '15-07-25'},
+          date: '15-07-25',
+          isCompleted: false},
         { title: 'Nulla maximus eros ut mauris varius sodales.',
-          date: '15-07-26'},
+          date: '15-07-26',
+          isCompleted: true},
         { title: 'Maecenas non nunc eu risus bibendum bibendum.',
-          date: '15-07-27'},
+          date: '15-07-27',
+          isCompleted: false},
         { title: 'Integer commodo odio sed vehicula volutpat.',
-          date: '15-07-28'},
+          date: '15-07-28',
+          isCompleted: false},
         { id: 6, title: 'trial task',
-          date: 'date'}
+          date: 'date',
+          isCompleted: true}
     ];
-
 
     var strSavedTaskItems = window.localStorage.getItem('taskItems');
     if (strSavedTaskItems != undefined) {
         let savedItems = JSON.parse(strSavedTaskItems);
         taskItems = savedItems;
     }
+
+
+    // for (let i = 0; i < taskItems.isCompleted.value; i++){
+    //   console.log(taskItems.isCompleted.value);
+    // }
+    // taskItems.forEach(console.log(taskItems.isCompleted););
 
     window.lastId = taskItems.reduce(
       (accumulator, currentValue) => {
@@ -48,11 +59,12 @@ window.addEventListener('load', function(event){
       0
     );
 
-    console.log('this is a collection:');
-    console.log(document.getElementsByClassName("to-do-item"));
-    console.log('this is an array:');
-    console.log(taskItems);
-    console.log(taskItems[3].date);
+    // console.log('this is a collection:');
+    // console.log(document.getElementsByClassName("to-do-item"));
+    // console.log('this is an array:');
+    // console.log(taskItems);
+    // console.log(taskItems[3].date);
+    // console.log(taskItems[i].isCompleted);
     // if ( 1===5) { // loop an array with foreach
     //     taskItems.forEach(function(taskItem) {
     //         let task = document.createElement("li");
@@ -80,7 +92,7 @@ window.addEventListener('load', function(event){
     for (index in taskItems) { // for .. in - index is the sequence number of object
         // console.log(arrayObjects[index].title);
 
-        addTaskToList(index, taskItems[index].title, taskItems[index].date);
+        addTaskToList(index, taskItems[index].title, taskItems[index].date, taskItems[index].isCompleted);
         // addTaskToList(index, taskItems[index].date);
         //calling out tasks items with title and indesx
     }
@@ -126,7 +138,7 @@ window.addEventListener('load', function(event){
         var newTask = taskInput.value;
         var setDate = dateInput.value;
         // display
-        addTaskToList(taskItems.length, newTask, dateInput.value);
+        addTaskToList(taskItems.length, newTask, dateInput.value, false);
         taskItems.push({ id: ++window.lastId, title: taskInput.value, date: dateInput.value});
         window.localStorage.setItem(
             'taskItems',
@@ -137,7 +149,7 @@ window.addEventListener('load', function(event){
         console.log(taskItems);
     });
 
-    function addTaskToList(index, title, date) {
+    function addTaskToList(index, title, date, taskIsCompleted) {
 
         let task = document.createElement("li");
         //add and id to the li
@@ -171,6 +183,13 @@ window.addEventListener('load', function(event){
 
         task.appendChild(editButton);
         task.appendChild(deleteButton);
+
+        if (taskIsCompleted === true) {
+          editButton.classList.add("completed");
+          deleteButton.classList.add("completed");
+          editButton.setAttribute("disabled", "disabled");
+          deleteButton.setAttribute("disabled", "disabled");
+        }
 
         editButton.onclick = function() {
             // document.getElementById("pop-up").style.display = 'block';
