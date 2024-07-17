@@ -44,7 +44,6 @@ window.addEventListener('load', function(event){
         taskItems = savedItems;
     }
 
-
     // for (let i = 0; i < taskItems.isCompleted.value; i++){
     //   console.log(taskItems.isCompleted.value);
     // }
@@ -89,10 +88,12 @@ window.addEventListener('load', function(event){
     //         listHolder.appendChild(task);
     //       }
     //     }
+
+
     for (index in taskItems) { // for .. in - index is the sequence number of object
         // console.log(arrayObjects[index].title);
-
-        addTaskToList(index, taskItems[index].title, taskItems[index].date, taskItems[index].isCompleted);
+        addTaskToList(index, taskItems[index]);
+        // addTaskToList(index, taskItems[index].title, taskItems[index].date, taskItems[index].isCompleted);
         // addTaskToList(index, taskItems[index].date);
         //calling out tasks items with title and indesx
     }
@@ -149,7 +150,7 @@ window.addEventListener('load', function(event){
         console.log(taskItems);
     });
 
-    function addTaskToList(index, title, date, taskIsCompleted) {
+    function addTaskToList(index, currentTaskItem) {
 
         let task = document.createElement("li");
         //add and id to the li
@@ -160,13 +161,13 @@ window.addEventListener('load', function(event){
         let titleSpan = document.createElement('span');
         task.appendChild(titleSpan);
         // task.innerHTML = title;
-        titleSpan.innerHTML = title;
+        titleSpan.innerHTML = currentTaskItem.title;
         titleSpan.id = 'task_title_' + index;
         titleSpan.classList.add("task_titles");
 
         let taskDate = document.createElement('span');
         task.appendChild(taskDate);
-        taskDate.innerHTML = `~ ${date}`;
+        taskDate.innerHTML = `~ ${currentTaskItem.date}`;
         taskDate.id = 'task_date';
 
         // console.log(task);
@@ -180,16 +181,8 @@ window.addEventListener('load', function(event){
         deleteButton.innerHTML = 'DELETE';
         deleteButton.classList.add("list_button");
 
-
         task.appendChild(editButton);
         task.appendChild(deleteButton);
-
-        if (taskIsCompleted === true) {
-          editButton.classList.add("completed");
-          deleteButton.classList.add("completed");
-          editButton.setAttribute("disabled", "disabled");
-          deleteButton.setAttribute("disabled", "disabled");
-        }
 
         editButton.onclick = function() {
             // document.getElementById("pop-up").style.display = 'block';
@@ -199,7 +192,7 @@ window.addEventListener('load', function(event){
             popUp.id = "edit_pop_up";
             let inputPopUp = document.createElement("input");
             inputPopUp.id = "input_pop-up";
-            inputPopUp.value = title;
+            inputPopUp.value = currentTaskItem.title;
             let buttonPopUp = document.createElement("button");
             buttonPopUp.innerHTML = "UPDATE";
             buttonPopUp.classList.add("button_pop_up");
@@ -241,7 +234,7 @@ window.addEventListener('load', function(event){
               task.classList.add("delete_fade");
               // create new array, excluding the deleted task
               let newTaskItems = taskItems.filter( (taskItem) => {
-                return taskItem.title != title;
+                return taskItem.title != currentTaskItem.title;
               });
 
               // save to memory
@@ -258,6 +251,15 @@ window.addEventListener('load', function(event){
         isCompleted.id = "completed";
         isCompleted.setAttribute("type", "checkbox");
         task.prepend(isCompleted);
+        if (currentTaskItem.isCompleted === true) {
+          editButton.classList.add("completed");
+          deleteButton.classList.add("completed");
+          editButton.setAttribute("disabled", "disabled");
+          deleteButton.setAttribute("disabled", "disabled");
+          titleSpan.classList.add("completed_task");
+          isCompleted.checked = true;
+        };
+
 
         isCompleted.onclick = function(event) {
           if (confirm("Have you completed this task?") == true) {
@@ -268,11 +270,6 @@ window.addEventListener('load', function(event){
             titleSpan.classList.add("completed_task");
           }
         }
-        // isCompleted.onclick = function(event) {
-        //     let completedPopUp = document.createElement("div");
-        //     completedPopUp.classList.add("edit_pop_up");
-        //     completedPopUp.id = "edit_pop_up";
-        // }
       }
 
       document.addEventListener('keydown', function(event) {
