@@ -112,6 +112,12 @@ window.addEventListener('load', function(event){
             document.getElementById("task-input").classList.remove('error');
         }
 
+        var noDate = document.getElementById('no_date');
+        if (noDate != undefined) {
+            noDate.remove();
+            document.getElementById('set_date').classList.remove('error');
+        }
+
         // validate if input has value
         if (taskInput.value === '' || dateInput.value === '') {
             if (taskInput.value === '') {
@@ -127,6 +133,7 @@ window.addEventListener('load', function(event){
             if (dateInput.value === '') {
                 let noInputDate = document.createElement ("span");
                 noInputDate.classList.add('errorNotice');
+                noInputDate.id = "no_date";
                 dateInput.after(noInputDate);
                 noInputDate.innerHTML = 'No value';
                 dateInput.classList.add("error");
@@ -252,22 +259,42 @@ window.addEventListener('load', function(event){
         isCompleted.setAttribute("type", "checkbox");
         task.prepend(isCompleted);
         if (currentTaskItem.isCompleted === true) {
-          editButton.classList.add("completed");
-          deleteButton.classList.add("completed");
-          editButton.setAttribute("disabled", "disabled");
-          deleteButton.setAttribute("disabled", "disabled");
-          titleSpan.classList.add("completed_task");
+          setCompletedTask(titleSpan, editButton, deleteButton);
           isCompleted.checked = true;
         };
+        // if (currentTaskItem.isCompleted === null) {
+        //     enableButton(editButton);
+        //     enableButton(deleteButton);
+        // }
 
 
         isCompleted.onclick = function(event) {
-          if (confirm("Have you completed this task?") == true) {
-            editButton.classList.add("completed");
-            deleteButton.classList.add("completed");
-            editButton.setAttribute("disabled", "disabled");
-            deleteButton.setAttribute("disabled", "disabled");
-            titleSpan.classList.add("completed_task");
+          if (
+            currentTaskItem.isCompleted === false
+            &&
+            confirm("Have you completed this task?") == true
+          ) {
+              setCompletedTask(titleSpan, editButton, deleteButton);
+
+              currentTaskItem.isCompleted = event.target.checked;
+              window.localStorage.setItem(
+                  'taskItems',
+                  JSON.stringify(taskItems)
+              );
+
+              return;
+          }
+
+          if (confirm("Are you sure you want to uncheck?") == true) {
+              enableButton(editButton);
+              enableButton(deleteButton);
+              titleSpan.classList.remove('completed_task');
+
+              currentTaskItem.isCompleted = event.target.checked;
+              window.localStorage.setItem(
+                  'taskItems',
+                  JSON.stringify(taskItems)
+              );
           }
         }
       }
@@ -283,6 +310,22 @@ window.addEventListener('load', function(event){
     function alertNoInput(){}
 
     function addDatetoTaskList(){}
+
+    function setCompletedTask(titleSpan, editButton, deleteButton) {
+      disableButton(editButton);
+      disableButton(deleteButton);
+      titleSpan.classList.add("completed_task");
+    }
+
+    function disableButton(currentButton) {
+      currentButton.classList.add("completed");
+      currentButton.setAttribute("disabled", "disabled");
+    }
+
+    function enableButton(currentButton) {
+      currentButton.classList.remove("completed");
+      currentButton.removeAttribute("disabled");
+    }
 
     // TODO
     // var taskStorage = {
