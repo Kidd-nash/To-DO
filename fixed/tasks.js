@@ -1,5 +1,5 @@
-window.addEventListener( load, function (event) {
-  console.log('start')
+window.addEventListener( 'load', function (event) {
+  console.log('start');
     //declare variables from html
 
     //Display tasks

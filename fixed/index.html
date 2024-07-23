@@ -2,18 +2,24 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href='style.css' rel='stylesheet' />
+    <script type="text/javascript" src="tasks.js"></script>
     <title>To Do Page</title>
   </head>
   <body>
     <div class="blank"></div>
     <div class="container">
         <div class="input_part">
-            <p></p>
-            <label></label>
-            <input />
-            <button></button>
-            <label></label>
-            <input />
+            <label for="task_input">Input Task:</label>
+            <input type="text" class="task_input" id="task_input" name="task_input" 
+            placeholder="Type a task" />
+            <label for="set_date">Input Date:</label>
+            <input type="date" class="set_date" id="set_date" name="set_date" 
+            min="" max=""/>
+            <button type="button" class="input_button" id="input_button">
+                Click to add
+            </button><br>
+            <p>To Do:</p>
         </div>
         <div class="list_container">
             <ul class="list_holder"></ul>
