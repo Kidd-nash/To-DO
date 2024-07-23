@@ -1,11 +1,56 @@
 window.addEventListener( 'load', function (event) {
   console.log('start');
     //declare variables from html
-
+    var taskInput = document.getElementById("task_input");
+    var setDate = document.getElementById("set_date");
+    var inputButton = document.getElementById("input_button");
+    var listContainer = document.getElementById("list_container");
     //Display tasks
+    class Task {
+        constructor(name, date, isCompleted) {
+            this.name = name;
+            this.date = date;
+            this.isCompleted = isCompleted;
+        }
+    }
+    
+    class TaskManager {
+        constructor(listContainer) {
+            this.listContainer = listContainer;
+            //should add task? this.task=[]?
+        }
+        addTaskToList(index, task) {
+            let taskItem = document.createElement("li");
+            taskItem.id = "task_item" + index;
+            taskItem.classList.add("task_item");
+            taskItem.innerHTML = task.title;
+            
+            this.listContainer.appendChild(taskItem);
+            //
+        }
+    }
 
+    let taskManager = new TaskManager(listContainer);
+//should fetch be here?
+    async function fetchTasks() {
+        const response = await fetch("http://localhost:8080/api/tasks");
+        const tasks = await response.json();
+        return tasks;
+      }
+      
+      fetchTasks().then(tasks => {
+        console.log('got tasks');
+        console.log(tasks);
+    
+        var newTaskObjects = tasks["hydra:member"].map(function(item) {
+          return { isCompleted: item.completed, title: item.title, date: item.completedAt };
+        });
+    
+        for (index in newTaskObjects) { 
+          taskManager.addTaskToList(index, newTaskObjects[index]);
+        }
+    });
     //Pre made tasks
-
         //fetch tasks from api
 
     //New tasks
