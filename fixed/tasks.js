@@ -8,12 +8,12 @@ window.addEventListener( 'load', function (event) {
     //Display tasks
     class Task {
         constructor(name, date, isCompleted) {
-            this.name = name;
+            this.title = name;
             this.date = date;
             this.isCompleted = isCompleted;
         }
     }
-    
+    //Manages features in a task
     class TaskManager {
         constructor(listContainer) {
             this.listContainer = listContainer;
@@ -23,6 +23,7 @@ window.addEventListener( 'load', function (event) {
             let taskItem = document.createElement("li");
             taskItem.id = "task_item" + index;
             taskItem.classList.add("task_item");
+            // console.log(task);
             taskItem.innerHTML = task.title;
             
             this.listContainer.appendChild(taskItem);
@@ -30,9 +31,6 @@ window.addEventListener( 'load', function (event) {
             let isCompleted = newElementCreation("input", "", "check_box" + index, ["check_box"], 
                 [{ attributeName: "type", attributeValue: "checkbox" }], taskItem
             );
-            // isCompleted.checked = task.isCompleted;
-            // taskItem.prependChild(isCompleted);
-            
             //date
             let taskDate = newElementCreation("span", task.date, "task_date" + index, ["task_date"],
                 [{ attributeName: "type", attributeValue: ""}], taskItem
@@ -40,16 +38,16 @@ window.addEventListener( 'load', function (event) {
             //edit button
             let editButton = newElementCreation("button", "EDIT", "edit_button" + index, ["edit_button"],
                 [{ attributeName: "type", attributeValue: "button"}], taskItem
-            )
+            );
             //delete button
             let deleteButton = newElementCreation("button", "DELETE", "delete_button" + index, ["delete_button"],
                 [{ attributeName: "type", attributeValue: "button"}], taskItem
-            )
+            );
         }
     }
-
     let taskManager = new TaskManager(listContainer);
-//should fetch be here?
+    //Pre made tasks
+        //fetch tasks from api
     async function fetchTasks() {
         const response = await fetch("http://localhost:8080/api/tasks");
         const tasks = await response.json();
@@ -57,24 +55,47 @@ window.addEventListener( 'load', function (event) {
       }
       
       fetchTasks().then(tasks => {
-        console.log('got tasks');
-        console.log(tasks);
+        // console.log('got tasks');
+        // console.log(tasks);
     
-        var newTaskObjects = tasks["hydra:member"].map(function(item) {
+        var taskObjects = tasks["hydra:member"].map(function(item) {
           return { isCompleted: item.completed, title: item.title, date: item.completedAt };
         });
     
-        for (index in newTaskObjects) { 
-          taskManager.addTaskToList(index, newTaskObjects[index]);
+        for (index in taskObjects) { 
+          taskManager.addTaskToList(index, taskObjects[index]);
         }
     });
-    //Pre made tasks
-        //fetch tasks from api
-
     //New tasks
+    inputButton.addEventListener('click', function (e) {
+        //set variables/values
+        var newTaskName = taskInput.value;
+        var newTaskDate = setDate.value;
 
-        //Validate Input (task name, date)
+        const newTaskObject = new Task(
+            taskInput.value,
+            setDate.value,
+            false
+        );
+        //validate values
+        if (taskInput.value === "" || setDate.value === "") {
+            if (taskInput.value === "") {
+                let noTaskInput = errorNotice("span", "No Task Input", "error_notice", ["error_notice"]);
+                taskInput.after(noTaskInput);
+            }
 
+            if (setDate.value === "") {
+                let noDateInput = errorNotice("span", "No Date Input", "error_notice", ["error_notice"]);
+                setDate.after(noDateInput);
+            }
+            //returns process when 
+            return;
+        };
+
+        //add values/task to list
+        taskManager.addTaskToList(index, newTaskObject);
+    });
+    
     //3 main processes for both Pre made and New tasks
 
         //add
@@ -113,4 +134,25 @@ function newElementCreation(
     parent.appendChild(newElement);
 
     return newElement;
+};
+function errorNotice(
+    elementType,
+    innerHTML,
+    elementId,
+    elementClasses
+) {
+    var errorElement =document.createElement(elementType);
+
+    if (innerHTML != "") {
+        errorElement.innerHTML = innerHTML;
+    }
+
+    errorElement.id = elementId;
+
+    elementClasses.forEach((className) => {
+        errorElement.classList.add(className);
+    });
+
+    return errorElement;
+
 };
