@@ -37,8 +37,14 @@ window.addEventListener( 'load', function (event) {
             let taskDate = newElementCreation("span", task.date, "task_date" + index, ["task_date"],
                 [{ attributeName: "type", attributeValue: ""}], taskItem
             );
-            //edit 
-            //delete
+            //edit button
+            let editButton = newElementCreation("button", "EDIT", "edit_button" + index, ["edit_button"],
+                [{ attributeName: "type", attributeValue: "button"}], taskItem
+            )
+            //delete button
+            let deleteButton = newElementCreation("button", "DELETE", "delete_button" + index, ["delete_button"],
+                [{ attributeName: "type", attributeValue: "button"}], taskItem
+            )
         }
     }
 
