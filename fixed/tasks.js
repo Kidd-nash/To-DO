@@ -26,7 +26,19 @@ window.addEventListener( 'load', function (event) {
             taskItem.innerHTML = task.title;
             
             this.listContainer.appendChild(taskItem);
-            //
+            //isCompleted
+            let isCompleted = newElementCreation("input", "", "check_box" + index, ["check_box"], 
+                [{ attributeName: "type", attributeValue: "checkbox" }], taskItem
+            );
+            // isCompleted.checked = task.isCompleted;
+            // taskItem.prependChild(isCompleted);
+            
+            //date
+            // let taskDate = newElementCreation("span", task.date, "task_date" + index, ["task_date"],
+            //     [{ attributeName: "type", attributeValue: ""}], taskItem
+            // );
+            //edit 
+            //delete
         }
     }
 
@@ -64,8 +76,35 @@ window.addEventListener( 'load', function (event) {
         //edit
 
         //delete
-
-
-
-
 });
+//creating element with 5 properties
+//function format newElementCreation("elementType", "innerHTML(text)", "elementId" + index, ["elemenetClass/es"],
+//                                   [{ attritbuteName "type", attributeValue "value" }], taskItem);
+function newElementCreation(
+    elementType,
+    innerHTML,
+    elementId,
+    elementClasses, 
+    elementAttributes,
+    parent
+) {
+    var newElement = document.createElement(elementType);
+     
+    if (innerHTML != '') {
+        newElement.innerHTML = innerHTML;
+    }
+
+    newElement.id = elementId;
+
+    elementClasses.forEach((className) => {
+        newElement.classList.add(className);
+      });
+
+    elementAttributes.forEach((elementAttribute) => {
+        newElement.setAttribute(elementAttribute.attributeName, elementAttribute.attributeValue);
+    });
+
+    parent.appendChild(newElement);
+
+    return newElement;
+};
