@@ -34,9 +34,9 @@ window.addEventListener( 'load', function (event) {
             // taskItem.prependChild(isCompleted);
             
             //date
-            // let taskDate = newElementCreation("span", task.date, "task_date" + index, ["task_date"],
-            //     [{ attributeName: "type", attributeValue: ""}], taskItem
-            // );
+            let taskDate = newElementCreation("span", task.date, "task_date" + index, ["task_date"],
+                [{ attributeName: "type", attributeValue: ""}], taskItem
+            );
             //edit 
             //delete
         }
