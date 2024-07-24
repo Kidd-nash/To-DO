@@ -15,8 +15,11 @@ window.addEventListener( 'load', function (event) {
     }
     //Manages features in a task
     class TaskManager {
+
+
         constructor(listContainer) {
             this.listContainer = listContainer;
+            this.currentEditId = null;
             //should add task? this.task=[]?
         }
         addTaskToList(index, task) {
@@ -43,6 +46,13 @@ window.addEventListener( 'load', function (event) {
             let deleteButton = newElementCreation("button", "DELETE", "delete_button" + index, ["delete_button"],
                 [{ attributeName: "type", attributeValue: "button"}], taskItem
             );
+            editButton.onclick = function () {
+                TaskManager.currentEditId = taskItem.id;
+                let divPopUp = newElementCreation("div", "", "edit_pop_up", ["edit_pop_up"], 
+                    [{ attributeName: "type", attributeValue: ""}], listContainer
+                );
+                
+            }
         }
     }
     let taskManager = new TaskManager(listContainer);
@@ -71,38 +81,35 @@ window.addEventListener( 'load', function (event) {
         //set variables/values
         var newTaskName = taskInput.value;
         var newTaskDate = setDate.value;
-
+    
         const newTaskObject = new Task(
             taskInput.value,
             setDate.value,
             false
         );
+        //clears errors
+        //get element by class 
+        var errorNotices = document.getElementsByClassName('error_notice_new');
+        while (errorNotices.length > 0) {
+            errorNotices[0].remove();
+        }
         //validate values
         if (taskInput.value === "" || setDate.value === "") {
             if (taskInput.value === "") {
-                let noTaskInput = errorNotice("span", "No Task Input", "error_notice", ["error_notice"]);
+                let noTaskInput = errorNotice("span", "No Task Input", "error_notice", ["error_notice", "error_notice_new"]);
                 taskInput.after(noTaskInput);
             }
 
             if (setDate.value === "") {
-                let noDateInput = errorNotice("span", "No Date Input", "error_notice", ["error_notice"]);
+                let noDateInput = errorNotice("span", "No Date Input", "error_notice", ["error_notice", "error_notice_new"]);
                 setDate.after(noDateInput);
             }
             //returns process when 
             return;
         };
-
         //add values/task to list
         taskManager.addTaskToList(index, newTaskObject);
     });
-    
-    //3 main processes for both Pre made and New tasks
-
-        //add
-
-        //edit
-
-        //delete
 });
 //creating element with 5 properties
 //function format newElementCreation("elementType", "innerHTML(text)", "elementId" + index, ["elemenetClass/es"],
