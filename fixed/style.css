@@ -41,3 +41,23 @@
     left: -200px;
     top: 100px;
 }
+.confirm_pop_up {
+    height: 200px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    margin: 0 50%;
+    left: -200px;
+    top: 100px;
+}
+.status_pop_up {
+    height: 200px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    margin: 0 50%;
+    left: -200px;
+    top: 100px;
+}
