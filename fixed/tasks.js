@@ -8,7 +8,8 @@ window.addEventListener( 'load', function (event) {
     var debugTasks = document.getElementById('debug_tasks');
     //Display tasks
     class Task {
-        constructor(name, date, isCompleted) {
+        constructor(id, name, date, isCompleted) {
+            this.id = id;
             this.title = name;
             this.date = date;
             this.isCompleted = isCompleted;
@@ -91,7 +92,19 @@ window.addEventListener( 'load', function (event) {
                     //saves the title to a new one
                     taskManager.taskObjects[index].title = inputPopUp.value;
                     document.getElementById(TaskManager.currentEditId).innerHTML = inputPopUp.value;
-                    divPopUp.remove();                    
+                    divPopUp.remove();
+                    
+                    fetch(
+                        "http://localhost:8080/api/tasks/" + taskManager.taskObjects[index].id,
+                        {
+                            method: 'PATCH',
+                            headers: {
+                                "Content-Type": "application/merge-patch+json",
+                            },
+                            body: JSON.stringify({ title: inputPopUp.value, description: inputPopUp.value }),
+                        }
+                    );
+
                 };
                 exitButton.onclick = function () {
                     divPopUp.remove();
@@ -112,12 +125,13 @@ window.addEventListener( 'load', function (event) {
                     [{ attributeName: "type", attributeValue: "button"}], confirmPopUp
                 );
                 confirmButton.onclick = function () {
-
                     taskManager.taskObjects = taskManager.taskObjects.filter((item) => {
                         //console.log(`title ${item.title} compared to ${task.title}`);
+                        if (item.title == task.title) {
+                            fetch("http://localhost:8080/api/tasks/" + item.id, { method: 'DELETE' });
+                        }
                         return item.title != task.title;
                     });
-
                     taskItem.remove();
                     confirmPopUp.remove();
                 };
@@ -166,6 +180,16 @@ window.addEventListener( 'load', function (event) {
                     }
                 });
                 taskManager.taskObjects[index].isCompleted = isCompleted.checked;
+                fetch(
+                    "http://localhost:8080/api/tasks/" + taskManager.taskObjects[index].id,
+                    {
+                        method: 'PATCH',
+                        headers: {
+                            "Content-Type": "application/merge-patch+json",
+                        },
+                        body: JSON.stringify({ completed: isCompleted.checked }),
+                    }
+                );
             };
         };
     }
@@ -184,7 +208,7 @@ window.addEventListener( 'load', function (event) {
         // console.log('got tasks');
         // console.log(tasks);
         var taskObjects = tasks["hydra:member"].map(function(item) {
-          return { isCompleted: item.completed, title: item.title, date: item.completedAt };
+          return { id: item.id, isCompleted: item.completed, title: item.title, date: item.completionDate };
         });
         taskManager.taskObjects = taskObjects;
     
@@ -198,6 +222,7 @@ window.addEventListener( 'load', function (event) {
             var newTaskDate = setDate.value;
         
             const newTaskObject = new Task(
+                taskManager.taskObjects.length,
                 taskInput.value,
                 setDate.value,
                 false
@@ -225,9 +250,27 @@ window.addEventListener( 'load', function (event) {
             //add values/task to list
             taskManager.addTaskToList(taskObjects.length, newTaskObject);
             //push id 
-            taskObjects.push({ id: taskObjects.length, title: taskInput.value, date: setDate.value });
+            submitTask({ title: taskInput.value, description: taskInput.value })
+            .then((task) => {
+                taskObjects.push({ id: task.id, title: taskInput.value, date: setDate.value });
+            });
         });
     });
+    async function submitTask(data) {
+
+        const response = await fetch(
+            "http://localhost:8080/api/tasks",
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }
+        );
+        const task = await response.json();
+        return task;
+    }
 });
 //creating element with 5 properties
 //function format newElementCreation("elementType", "innerHTML(text)", "elementId" + index, ["elemenetClass/es"],
