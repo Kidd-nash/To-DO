@@ -20,15 +20,12 @@ window.addEventListener( 'load', function (event) {
             this.listContainer = listContainer;
             this.currentEditId = null;
             //should add task? this.task=[]?
-
             this.taskObjects = [];
         }
-    
         // for debug
         showMyTasks = () => {
             console.log(this.taskObjects);
         }
-
         addTaskToList = (index, task) => {
             let taskManager = this;
             let taskItem = document.createElement("li");
@@ -36,7 +33,6 @@ window.addEventListener( 'load', function (event) {
             taskItem.classList.add("task_item");
             // console.log(task);
             // taskItem.innerHTML = task.title;
-            
             this.listContainer.appendChild(taskItem);
             //title/name
             let taskItemTitle = newElementCreation("span", task.title, "task_title_" + index, 
@@ -130,9 +126,6 @@ window.addEventListener( 'load', function (event) {
                 }
             };
             isCompleted.onclick = function () {
-                // if (
-                //     task.isCompleted =
-                // )
                 let confrimationMessage = (!taskManager.taskObjects[index].isCompleted)
                     ? 'Have you completed this task?'
                     : 'Do you want to uncheck this task?'
@@ -190,7 +183,6 @@ window.addEventListener( 'load', function (event) {
       fetchTasks().then(tasks => {
         // console.log('got tasks');
         // console.log(tasks);
-    
         var taskObjects = tasks["hydra:member"].map(function(item) {
           return { isCompleted: item.completed, title: item.title, date: item.completedAt };
         });
@@ -249,23 +241,17 @@ function newElementCreation(
     parent
 ) {
     var newElement = document.createElement(elementType);
-     
     if (innerHTML != '') {
         newElement.innerHTML = innerHTML;
     }
-
     newElement.id = elementId;
-
     elementClasses.forEach((className) => {
         newElement.classList.add(className);
       });
-
     elementAttributes.forEach((elementAttribute) => {
         newElement.setAttribute(elementAttribute.attributeName, elementAttribute.attributeValue);
     });
-
     parent.appendChild(newElement);
-
     return newElement;
 };
 function errorNotice(
@@ -275,17 +261,12 @@ function errorNotice(
     elementClasses
 ) {
     var errorElement =document.createElement(elementType);
-
     if (innerHTML != "") {
         errorElement.innerHTML = innerHTML;
     }
-
     errorElement.id = elementId;
-
     elementClasses.forEach((className) => {
         errorElement.classList.add(className);
     });
-
     return errorElement;
-
 };
