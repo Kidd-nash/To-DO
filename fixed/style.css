@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 18px;
-    font-family: arial;
+    font-family: 'Space Mono', monospace;
 }
 body {
     background-color: rgb(197, 205, 229);
@@ -64,27 +64,42 @@ li {
 .edit_pop_up {
     height: 200px;
     width: 400px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     position: absolute;
     border: 2px solid rgba(0, 0, 0, 0.5);
     margin: 0 50%;
     left: -200px;
     top: 100px;
+    display: flex;
+    justify-content: space-around;
 }
+.exit_button,
+    .input_pop_up,
+        .update_button {
+            height: 50px;
+            position: relative;
+            top: 12px;
+        }
 .confirm_pop_up {
     height: 200px;
     width: 400px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     position: absolute;
     border: 2px solid rgba(0, 0, 0, 0.5);
     margin: 0 50%;
     left: -200px;
     top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.exit_confirmation_button,
+    .confirm_button {
+    width: 30px;
 }
 .status_pop_up {
     height: 200px;
     width: 400px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     position: absolute;
     border: 2px solid rgba(0, 0, 0, 0.5);
     margin: 0 50%;

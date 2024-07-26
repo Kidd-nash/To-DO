@@ -77,7 +77,7 @@ window.addEventListener( 'load', function (event) {
                 let inputPopUp = newElementCreation("input", "", "input_pop_up", ["input_pop_up"], 
                     [
                         { attributeName: "type", attributeValue: "text"}, 
-                        { attributeName: "placeholder", attributeValue: "Edit your task here"}
+                        { attributeName: "placeholder", attributeValue: task.title}
                     ], divPopUp
                 );
                 //update button for pop up
@@ -117,7 +117,7 @@ window.addEventListener( 'load', function (event) {
                     [{ attributeName: "type", attributeValue: ""}], listContainer
                 );
                 let exitConfirmationButton = newElementCreation("button", "&times;", "exit_confirmation_button", 
-                    ["exit_button"], [{ attributeName: "type", attributeValue: ""}], confirmPopUp
+                    ["exit_confirmation_button"], [{ attributeName: "type", attributeValue: ""}], confirmPopUp
                 );
                 let confirmMessage = newElementCreation("span", "Are you sure you want to delete this task?", 
                     "confirm_message", ["confirm_message"], 
