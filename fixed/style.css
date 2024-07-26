@@ -6,7 +6,9 @@
     font-family: 'Space Mono', monospace;
 }
 body {
-    background-color: rgb(197, 205, 229);
+    background-color: rgba(4, 12, 36, 1);
+    background-image: url(/Gundam-display/Image-Compilation/Header3_BG.jpg);
+    background-size: 100%;
 }
 .input_parts {
     padding: 5px;
