@@ -5,7 +5,18 @@
     font-size: 18px;
     font-family: arial;
 }
-
+body {
+    background-color: rgb(197, 205, 229);
+}
+.input_parts {
+    padding: 5px;
+    margin: 5px 10px;
+}
+li {
+    list-style-type: none;
+    /* display: flex;
+    justify-content: center; */
+}
 .container {
     width: 960px;
     border: 1px solid rgba(0, 0, 0, 1);
@@ -15,21 +26,40 @@
 .input_part {
     border: 1px solid rgba(0, 0, 0, 1);
     border-radius: 10px;
+    background-color: rgb(157, 165, 189);
 }
 .list_container {
     border: 1px solid rgba(0, 0, 0, 1);
     border-radius: 10px;
+    background-color: rgb(217, 225, 249);
 }
 .task_item {
     margin: 10px auto;
+    display: flex;
+    position: relative;
+}
+.task_title {
+    position: relative;
+    width: 550px;
+    left: 20px;
 }
 .check_box {
+    position: relative;
+    left: 20px;
+    width: 20px;
     border: 1px solid rgba(0, 255, 0, 1);
     margin: 5px 10px;
 }
+.edit_button {
+    width: 65px;
+}
+.delete_button {
+    width: 95px;
+    margin: 0 10px;
+}
 .task_date {
     border: 1px solid rgba(0, 0, 255, 1);
-    margin: 5px 10px;
+    margin: 5px 20px;
 }
 .edit_pop_up {
     height: 200px;
@@ -60,4 +90,13 @@
     margin: 0 50%;
     left: -200px;
     top: 100px;
+}
+.title_completed {
+    text-decoration: line-through;
+}
+.error_notice {
+    background-color: red;
+    /* font: white; */
+    color: white;
+    padding: 6px;
 }

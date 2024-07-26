@@ -36,13 +36,14 @@ window.addEventListener( 'load', function (event) {
             // taskItem.innerHTML = task.title;
             this.listContainer.appendChild(taskItem);
             //title/name
+            let isCompleted = newElementCreation("input", "", "check_box_" + index, ["check_box"], 
+                [{ attributeName: "type", attributeValue: "checkbox" }], taskItem
+            );
             let taskItemTitle = newElementCreation("span", task.title, "task_title_" + index, 
                 ["task_title"], [{ attributeName: "type", attributeValue: ""}], taskItem
             );
             //isCompleted
-            let isCompleted = newElementCreation("input", "", "check_box_" + index, ["check_box"], 
-                [{ attributeName: "type", attributeValue: "checkbox" }], taskItem
-            );
+    
             //date
             let taskDate = newElementCreation("span", task.date, "task_date_" + index, ["task_date"],
                 [{ attributeName: "type", attributeValue: ""}], taskItem
@@ -59,6 +60,7 @@ window.addEventListener( 'load', function (event) {
                 isCompleted.checked = true;
                 editButton.setAttribute("disabled", "disabled");
                 deleteButton.setAttribute("disabled", "disabled");
+                taskItemTitle.classList.add("title_completed");
             };
             //edit task
             editButton.onclick = function () {
@@ -166,6 +168,7 @@ window.addEventListener( 'load', function (event) {
                     } else {
                         editButton.setAttribute("disabled", "disabled");
                         deleteButton.setAttribute("disabled", "disabled");
+                        taskItemTitle.classList.add("title_completed");
                     }
                 });
                 yesButton.addEventListener('click', function() {
@@ -177,6 +180,7 @@ window.addEventListener( 'load', function (event) {
                     } else {
                         editButton.setAttribute("disabled", "disabled");
                         deleteButton.setAttribute("disabled", "disabled");
+                        taskItemTitle.classList.add("title_completed");
                     }
                 });
                 taskManager.taskObjects[index].isCompleted = isCompleted.checked;
