@@ -117,3 +117,18 @@ li {
     color: white;
     padding: 6px;
 }
+.dark_mode {
+    background-color: rgb(57, 65, 89);
+    color: white;
+    border-color: white;
+}
+.dark_mode_two {
+    background-color: rgb(17, 25, 49);
+    color: white;
+    border-color: white;
+}
+.dark_mode_button {
+    background-color: rgb(17, 25, 49);
+    color: white;
+    border-color: wheat;
+}

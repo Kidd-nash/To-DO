@@ -317,3 +317,11 @@ function errorNotice(
     });
     return errorElement;
 };
+function darkMode() {
+    let darkContainer = document.getElementById("input_part");
+    let darkContainerTwo = document.getElementById("list_container");
+    let darkButtons = document.getElementById("input_button");
+    darkContainer.classList.toggle("dark_mode");
+    darkContainerTwo.classList.toggle("dark_mode_two");
+    darkButtons.classList.toggle("dark_mode_button");
+}
